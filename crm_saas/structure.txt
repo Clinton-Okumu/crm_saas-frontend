@@ -1,0 +1,52 @@
+src/
+├── components/
+│   ├── layout/
+│   │   └── DashboardLayout.jsx
+│   └── shared/
+│       ├── Button/
+│       ├── Card/
+│       ├── Input/
+│       └── Table/
+├── pages/
+│   ├── auth/
+│   │   ├── Login.jsx
+│   │   └── Register.jsx
+│   ├── dashboard/
+│   │   └── Home.jsx
+│   ├── accounting/
+│   │   ├── Dashboard.jsx
+│   │   ├── Invoices.jsx
+│   │   └── Expenses.jsx
+│   ├── crm/
+│   │   ├── Dashboard.jsx
+│   │   ├── Contacts.jsx
+│   │   ├── Campaigns.jsx
+│   │   └── Sales.jsx
+│   ├── hrm/
+│   │   ├── Dashboard.jsx
+│   │   ├── Employees.jsx
+│   │   └── Payroll.jsx
+│   ├── meetings/
+│   │   ├── Calendar.jsx
+│   │   └── Schedule.jsx
+│   └── projects/
+│       ├── Dashboard.jsx
+│       ├── ProjectList.jsx
+│       └── Tasks.jsx
+├── layout/
+│   └── MainLayout.jsx
+├── services/
+│   ├── api.js
+│   ├── accountingService.js
+│   ├── authService.js
+│   ├── crmService.js
+│   ├── hrmService.js
+│   └── projectService.js
+├── utils/
+│   ├── helpers.js
+│   └── constants.js
+├── hooks/
+│   ├── useAuth.js
+│   └── useApi.js
+└── context/
+    └── AuthContext.js
