@@ -6,6 +6,41 @@ import {
   CreditCard, PieChart, LogOut, ChevronLeft,
   ChevronRight
 } from 'lucide-react';
+import axios from 'axios';
+
+// Define handleLogout function
+const handleLogout = async () => {
+  try {
+    // Get refresh token
+    const refreshToken = localStorage.getItem('refresh_token') || sessionStorage.getItem('refresh_token');
+    
+    // Call logout API
+    await axios.post('http://127.0.0.1:8000/api/auth/logout/', {
+      refresh: refreshToken
+    });
+
+    // Clean up storage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('userInfo');
+    sessionStorage.removeItem('access_token');
+    sessionStorage.removeItem('refresh_token');
+    
+    // Remove Authorization header
+    delete axios.defaults.headers.common['Authorization'];
+    
+    // Redirect to login
+    window.location.href = '/login';
+    
+  } catch (error) {
+    console.error('Logout failed:', error);
+    // Still clear everything and redirect even if API call fails
+    localStorage.clear();
+    sessionStorage.clear();
+    window.location.href = '/login';
+  }
+};
+
 
 const navItems = [
   { icon: <FileText className="w-5 h-5" />, label: 'Dashboard', path: '/dashboard' },
@@ -93,6 +128,20 @@ const SidebarItem = ({ item, isCollapsed }) => {
           )}
         </div>
       </Link>
+    );
+  }
+
+  if (!item.children) {
+    return (
+      <div 
+        onClick={handleLogout}
+        className={`flex items-center space-x-3 p-2 rounded-lg mb-1 cursor-pointer hover:bg-gray-800`}
+      >
+        {item.icon}
+        {!isCollapsed && (
+          <span className="flex-1">{item.label}</span>
+        )}
+      </div>
     );
   }
 
