@@ -1,13 +1,13 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import DashboardContent from '../../components/dashboard/DashboardContent';
+import Calendar from '../../components/calendar/Calendar';
 
-const Home = () => {
+const CalendarPage = () => {
   return (
     <DashboardLayout>
-      <DashboardContent />
+      <Calendar />
     </DashboardLayout>
   );
 };
 
-export default Home;
+export default CalendarPage;

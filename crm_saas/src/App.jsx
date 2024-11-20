@@ -1,19 +1,23 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import Login from './pages/auth/Login';
 import Home from './pages/dashboard/Home';
+import CalendarPage from './pages/calendar/Calendar'; // Add this import
 
-// Protected Route component
-// eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
   const accessToken = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
   
   if (!accessToken) {
     return <Navigate to="/login" replace />;
   }
-
+  
   return children;
+};
+
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired
 };
 
 function App() {
@@ -44,6 +48,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/calendar"
+          element={
+            <ProtectedRoute>
+              <CalendarPage />
             </ProtectedRoute>
           }
         />
