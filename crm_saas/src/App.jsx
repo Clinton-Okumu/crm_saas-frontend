@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Login from './pages/auth/Login';
 import Home from './pages/dashboard/Home';
-import CalendarPage from './pages/calendar/Calendar'; // Add this import
+import CalendarPage from './pages/calendar/Calendar';
+import DocumentPage from './pages/documents/Documents';
+
 
 const ProtectedRoute = ({ children }) => {
   const accessToken = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
@@ -56,6 +58,14 @@ function App() {
           element={
             <ProtectedRoute>
               <CalendarPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/documents"
+          element={
+            <ProtectedRoute>
+              <DocumentPage />
             </ProtectedRoute>
           }
         />
