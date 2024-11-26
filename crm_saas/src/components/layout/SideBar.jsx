@@ -79,7 +79,7 @@ const dynamicNavItems = [
     label: 'HR App',
     module: 'hrm',
     children: [
-      { label: 'HR Settings', path: '/hr/settings' },
+      { label: 'HR Dashboard', path: '/hr/dashboard' },
       { label: 'HR Policies', path: '/hr/policies' },
       { label: 'Employee Records', path: '/hr/employees' },
       { label: 'Payroll Records', path: '/hr/payroll' },

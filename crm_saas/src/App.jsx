@@ -1,34 +1,38 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import axios from 'axios';
-import Login from './pages/auth/Login';
-import Home from './pages/dashboard/Home';
-import CalendarPage from './pages/calendar/Calendar';
-import DocumentPage from './pages/documents/Documents';
-
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import axios from "axios";
+import Login from "./pages/auth/Login";
+import Home from "./pages/dashboard/Home";
+import CalendarPage from "./pages/calendar/Calendar";
+import DocumentPage from "./pages/documents/Documents";
+import DashboardPage from "./pages/hrm/Dashboard";``
 
 const ProtectedRoute = ({ children }) => {
-  const accessToken = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
-  
+  const accessToken =
+    localStorage.getItem("access_token") ||
+    sessionStorage.getItem("access_token");
+
   if (!accessToken) {
     return <Navigate to="/login" replace />;
   }
-  
+
   return children;
 };
 
 ProtectedRoute.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 function App() {
   const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token') || sessionStorage.getItem('access_token');
+    const token =
+      localStorage.getItem("access_token") ||
+      sessionStorage.getItem("access_token");
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
     setIsInitialized(true);
   }, []);
@@ -66,6 +70,14 @@ function App() {
           element={
             <ProtectedRoute>
               <DocumentPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hr/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
             </ProtectedRoute>
           }
         />
