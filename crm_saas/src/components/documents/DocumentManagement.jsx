@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Globe, Share } from 'lucide-react';
 import axios from 'axios';
+import { Plus, Search, Globe, Share } from 'lucide-react';
+
+// Helper function to get tokens
+const getToken = (type) => localStorage.getItem(type);
 
 const DocumentManagement = () => {
-  // State variables for managing documents, loading state, errors, search queries, and view modes
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState('all');
 
-  // Fetch documents when viewMode changes
   useEffect(() => {
     fetchDocuments();
   }, [viewMode]);
 
-  // Debounce search queries to limit API calls
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (searchQuery) fetchDocuments();
@@ -23,42 +23,130 @@ const DocumentManagement = () => {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  // Fetch documents from the backend
+  // Helper function to build the query URL
+  const buildUrl = () => {
+    const params = new URLSearchParams();
+    if (viewMode !== 'all') {
+      params.append('is_public', viewMode === 'public');
+    }
+    if (searchQuery) {
+      params.append('search', searchQuery);
+    }
+    return `http://127.0.0.1:8000/api/documents?${params.toString()}`;
+  };
+
+  // Function to refresh the access token
+  const refreshAccessToken = async () => {
+    const refreshToken = getToken('refresh');
+    if (!refreshToken) {
+      setError('Authentication required');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+        refresh: refreshToken,
+      });
+      const newAccessToken = response.data.access;
+      localStorage.setItem('access', newAccessToken); // Save new access token
+      return newAccessToken;
+    } catch (error) {
+      console.error('Failed to refresh access token:', error);
+      setError('Session expired. Please log in again.');
+      localStorage.removeItem('access');
+      localStorage.removeItem('refresh');
+    }
+  };
+
+  // Function to fetch documents
   const fetchDocuments = async () => {
     setLoading(true);
+    const token = getToken('access');
+
+    if (!token) {
+      setError('Authentication token is missing');
+      return;
+    }
+
     try {
-      const url = `http://127.0.0.1:8000/api/documents${viewMode !== 'all' ? `/${viewMode}` : ''}${searchQuery ? `?search=${searchQuery}` : ''}`;
-      const response = await axios.get(url);
-      setDocuments(Array.isArray(response.data) ? response.data : []);
+      const url = buildUrl();
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDocuments(response.data);
     } catch (error) {
-      console.error('Error fetching documents:', error);
-      setError('Failed to load documents');
+      if (error.response?.status === 401) {
+        const newAccessToken = await refreshAccessToken();
+        if (newAccessToken) {
+          // Retry fetching documents with the new access token
+          fetchDocuments();
+        }
+      } else {
+        setError('Failed to load documents');
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  // Create a new document
+  // Function to handle document creation
   const handleCreateDocument = async () => {
+    const token = getToken('access');
+    if (!token) {
+      setError('Authentication token is missing');
+      return;
+    }
+
     try {
-      await axios.post('http://127.0.0.1:8000/api/documents/', {
-        title: 'New Document',
-        is_public: false,
-      });
-      fetchDocuments();
+      await axios.post(
+        'http://127.0.0.1:8000/api/documents/',
+        {
+          title: 'New Document',
+          is_public: false,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchDocuments(); // Refresh documents after creation
     } catch (error) {
-      console.error('Error creating document:', error);
       setError('Failed to create document');
     }
   };
 
+  // Function to handle document deletion
+  const handleDeleteDocument = async (docId) => {
+    const token = getToken('access');
+    if (!token) {
+      setError('Authentication token is missing');
+      return;
+    }
+
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/documents/${docId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchDocuments(); // Refresh documents after deletion
+    } catch (error) {
+      setError('Failed to delete document');
+    }
+  };
+
+  const handleRetry = () => {
+    setError(null);
+    fetchDocuments();
+  };
+
   return (
     <div className="p-6">
-      {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-semibold mb-4">Documents</h1>
-
-        {/* Search and Create Section */}
         <div className="flex justify-between items-center gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
@@ -80,7 +168,6 @@ const DocumentManagement = () => {
         </div>
       </div>
 
-      {/* View Mode Buttons */}
       <div className="flex gap-2 mb-8">
         <button
           onClick={() => setViewMode('all')}
@@ -110,21 +197,24 @@ const DocumentManagement = () => {
         </button>
       </div>
 
-      {/* Content */}
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-500 border-r-transparent"></div>
           <p className="mt-4 text-gray-500">Loading documents...</p>
         </div>
       ) : error ? (
-        <div className="text-center py-20 text-red-500">{error}</div>
+        <div className="text-center py-20 text-red-500">
+          {error}
+          <button
+            onClick={handleRetry}
+            className="ml-4 text-blue-500 hover:underline"
+          >
+            Retry
+          </button>
+        </div>
       ) : documents.length === 0 ? (
         <div className="text-center py-20 text-gray-500">
-          {searchQuery
-            ? `No results found for "${searchQuery}"`
-            : viewMode === 'all'
-            ? 'No documents yet. Create your first document!'
-            : `No ${viewMode} documents found`}
+          No documents available. Create your first document!
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -135,6 +225,14 @@ const DocumentManagement = () => {
             >
               <h3 className="text-lg font-medium">{doc.title}</h3>
               <p className="text-gray-500">{doc.description || 'No description available'}</p>
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  onClick={() => handleDeleteDocument(doc.id)}
+                  className="text-red-500 hover:underline"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -144,4 +242,3 @@ const DocumentManagement = () => {
 };
 
 export default DocumentManagement;
-

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import axios from 'axios';
+import { loginUser } from '../../services/api.js';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,34 +28,14 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/auth/login/', {
-        email: formData.email,
-        password: formData.password
-      });
-
-      // Store tokens based on remember me
-      const storage = formData.rememberMe ? localStorage : sessionStorage;
-      storage.setItem('access_token', response.data.access);
-      storage.setItem('refresh_token', response.data.refresh);
-
-      // Store user info
-      const userInfo = {
-        email: response.data.email,
-        role: response.data.role,
-        primary_module: response.data.primary_module,
-        accessible_modules: response.data.accessible_modules
-      };
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-      // Set default authorization header
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+      const response = await loginUser(formData.email, formData.password);
 
       // Navigate to dashboard
       navigate('/dashboard', { replace: true });
 
     } catch (err) {
-      console.error('Login error:', err.response?.data);
-      setError(err.response?.data?.detail || 'Login failed. Please check your credentials.');
+      console.error('Login error:', err.message);
+      setError(err.message || 'Login failed. Please check your credentials.');
     } finally {
       setIsLoading(false);
     }

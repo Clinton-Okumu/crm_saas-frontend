@@ -6,7 +6,9 @@ import Login from "./pages/auth/Login";
 import Home from "./pages/dashboard/Home";
 import CalendarPage from "./pages/calendar/Calendar";
 import DocumentPage from "./pages/documents/Documents";
-import DashboardPage from "./pages/hrm/Dashboard";``
+import DashboardPage from "./pages/hrm/Dashboard";
+import EmployeeRecordsPage from "./pages/hrm/Employees";
+import PayrollRecordsPage from "./pages/hrm/Payroll";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -78,6 +80,22 @@ function App() {
           element={
             <ProtectedRoute>
               <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hr/employees"
+          element={
+            <ProtectedRoute>
+              <EmployeeRecordsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/hr/payroll"
+          element={
+            <ProtectedRoute>
+              <PayrollRecordsPage />
             </ProtectedRoute>
           }
         />
