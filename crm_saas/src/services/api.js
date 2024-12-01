@@ -94,17 +94,12 @@ export const loginUser = async (email, password) => {
     );
   }
 };
-
 export const logoutUser = async (refreshToken) => {
-  try {
-    const response = await axios.post(
-      "http://127.0.0.1:8000/api/auth/logout/",
-      {
-        refresh: refreshToken,
-      },
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await axios.post(
+    "http://127.0.0.1:8000/api/auth/logout/",
+    {
+      refresh: refreshToken,
+    }
+  );
+  return response;
 };
