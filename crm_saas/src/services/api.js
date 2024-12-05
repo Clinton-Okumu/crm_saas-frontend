@@ -95,11 +95,52 @@ export const loginUser = async (email, password) => {
   }
 };
 export const logoutUser = async (refreshToken) => {
-  const response = await axios.post(
-    "http://127.0.0.1:8000/api/auth/logout/",
-    {
-      refresh: refreshToken,
-    }
-  );
+  const response = await axios.post("http://127.0.0.1:8000/api/auth/logout/", {
+    refresh: refreshToken,
+  });
   return response;
+};
+
+//function to fetch objevtives
+export const fetchObjectives = async () => {
+  try {
+    const response = await axios.get(`${API_URL}okr/objectives/`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching objectives:", error);
+    throw error;
+  }
+};
+
+//function to fetch tasks
+export const fetchTasks = async () => {
+  try {
+    const response = await axios.get(`${API_URL}okr/tasks/`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    throw error;
+  }
+};
+
+//function to fetch hrm employee records
+export const fetchEmployeeRecords = async () => {
+  try {
+    const response = await axios.get(`${API_URL}hrm/employees/`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching payroll records", error);
+    throw error;
+  }
+};
+
+//function to fetch hrm records
+export const fetchPayrollRecords = async () => {
+  try {
+    const response = await axios.get(`${API_URL}payroll-records/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching payroll records:", error);
+    throw error;
+  }
 };

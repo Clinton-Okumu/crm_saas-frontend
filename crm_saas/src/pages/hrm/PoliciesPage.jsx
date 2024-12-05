@@ -1,13 +1,15 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Calendar from '../../components/calendar/Calendar';
+import Policies from '../../components/hrm/Policies/Policies.jsx';
 
-const CalendarPage = () => {
+const PoliciesPage = () => {
   return (
     <DashboardLayout>
-      <Calendar />
+      <Policies />
     </DashboardLayout>
   );
 };
 
-export default CalendarPage;
+export default PoliciesPage;
+
+

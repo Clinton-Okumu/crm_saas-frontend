@@ -6,9 +6,13 @@ import Login from "./pages/auth/Login";
 import Home from "./pages/dashboard/Home";
 import CalendarPage from "./pages/calendar/Calendar";
 import DocumentPage from "./pages/documents/Documents";
-import DashboardPage from "./pages/hrm/Dashboard";
-import EmployeeRecordsPage from "./pages/hrm/Employees";
-import PayrollRecordsPage from "./pages/hrm/Payroll";
+import EmployeeRecordPage from "./pages/hrm/EmployeeRecordPage";
+import EmployeePayrollPage from "./pages/hrm/EmployeePayrollPage";
+import DashboardOKRPage from "./pages/okrapp/Dashboard";
+import ObejectivesList from "./pages/okrapp/ObjectivesList";
+import TaskList from "./pages/okrapp/TaskList";
+import DashboardPage from "./pages/hrm/DashboardPage";
+import PoliciesPage from "./pages/hrm/PoliciesPage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -84,10 +88,18 @@ function App() {
           }
         />
         <Route
+          path="/hr/policies"
+          element={
+            <ProtectedRoute>
+              <PoliciesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/hr/employees"
           element={
             <ProtectedRoute>
-              <EmployeeRecordsPage />
+              <EmployeeRecordPage />
             </ProtectedRoute>
           }
         />
@@ -95,7 +107,31 @@ function App() {
           path="/hr/payroll"
           element={
             <ProtectedRoute>
-              <PayrollRecordsPage />
+              <EmployeePayrollPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardOKRPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/objectives"
+          element={
+            <ProtectedRoute>
+              <ObejectivesList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/tasks"
+          element={
+            <ProtectedRoute>
+              <TaskList />
             </ProtectedRoute>
           }
         />

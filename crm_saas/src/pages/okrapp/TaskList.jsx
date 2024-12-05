@@ -1,13 +1,13 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import HRDashboard from '../../components/hrm/Dashboard/Dashboard';
+import TaskListSection from '../../components/okrapp/TaskList';
 
-const DashboardPage = () => {
+const TaskList = () => {
   return (
     <DashboardLayout>
-      <HRDashboard />
+      <TaskListSection />
     </DashboardLayout>
   );
 };
 
-export default DashboardPage;
+export default TaskList;

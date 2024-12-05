@@ -1,13 +1,15 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Calendar from '../../components/calendar/Calendar';
+import Dashboard from '../../components/hrm/Dashboard/Dashboard';
 
-const CalendarPage = () => {
+const DashboardPage = () => {
   return (
     <DashboardLayout>
-      <Calendar />
+      <Dashboard />
     </DashboardLayout>
   );
 };
 
-export default CalendarPage;
+export default DashboardPage;
+
+

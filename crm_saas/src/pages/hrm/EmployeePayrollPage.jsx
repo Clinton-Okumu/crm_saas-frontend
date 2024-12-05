@@ -2,7 +2,7 @@ import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
 import PayrollList from '../../components/hrm/Payroll/PayrollList';
 
-const PayrollRecordsPage = () => {
+const EmployeePayrollPage = () => {
   return (
     <DashboardLayout>
       <PayrollList />
@@ -10,4 +10,5 @@ const PayrollRecordsPage = () => {
   );
 };
 
-export default PayrollRecordsPage;
+export default EmployeePayrollPage;
+

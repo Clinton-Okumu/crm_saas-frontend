@@ -1,13 +1,13 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Calendar from '../../components/calendar/Calendar';
+import DashboardSection from '../../components/okrapp/Dashboard';
 
-const CalendarPage = () => {
+const DashboardOKRPage = () => {
   return (
     <DashboardLayout>
-      <Calendar />
+      <DashboardSection />
     </DashboardLayout>
   );
 };
 
-export default CalendarPage;
+export default DashboardOKRPage;

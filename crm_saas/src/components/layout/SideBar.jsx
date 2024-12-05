@@ -38,7 +38,6 @@ const handleLogout = async () => {
 
 
 // Constant Nav Items (always visible to all users)
-// Constant Nav Items (always visible to all users)
 const constantNavItems = [
   {
     icon: <FileText className="w-5 h-5" />,
@@ -313,6 +312,7 @@ const roleBasedNavItems = {
     },
   ],
 };
+
 // Existing SidebarItem component (keep as is from previous implementation)
 const SidebarItem = ({ icon, label, path, children, badge }) => {
   const [isOpen, setIsOpen] = useState(false);

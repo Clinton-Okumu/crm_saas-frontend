@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Make sure to import Link if not already done
 
-const PayrollList = () => {
+const EmployeeRecord = () => {
   return (
     <div className="p-6 bg-white-50">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-800">Employee Payroll</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">Employee Record</h1>
 
         {/* Action Buttons: Create Task */}
         <div className="flex space-x-4">
@@ -19,5 +19,5 @@ const PayrollList = () => {
   );
 };
 
-export default PayrollList;
+export default EmployeeRecord;
 
