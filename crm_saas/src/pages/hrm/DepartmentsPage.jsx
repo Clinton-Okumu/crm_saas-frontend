@@ -1,15 +1,15 @@
 import React from 'react';
 import DashboardLayout from '../../components/layout/DashboardLayout';
-import Policies from '../../components/hrm/Policies/Policies.jsx';
+import Departments from '../../components/hrm/Departments/Departments.jsx';
 
-const PoliciesPage = () => {
+const DepartmentsPage = () => {
   return (
     <DashboardLayout>
-      <Policies />
+      <Departments />
     </DashboardLayout>
   );
 };
 
-export default PoliciesPage;
+export default DepartmentsPage;
 
 

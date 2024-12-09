@@ -12,7 +12,7 @@ import DashboardOKRPage from "./pages/okrapp/Dashboard";
 import ObejectivesList from "./pages/okrapp/ObjectivesList";
 import TaskList from "./pages/okrapp/TaskList";
 import DashboardPage from "./pages/hrm/DashboardPage";
-import PoliciesPage from "./pages/hrm/PoliciesPage";
+import DepartmentsPage from "./pages/hrm/DepartmentsPage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -88,10 +88,10 @@ function App() {
           }
         />
         <Route
-          path="/hr/policies"
+          path="/hr/departments"
           element={
             <ProtectedRoute>
-              <PoliciesPage />
+              <DepartmentsPage />
             </ProtectedRoute>
           }
         />

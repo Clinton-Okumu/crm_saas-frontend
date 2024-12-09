@@ -92,7 +92,7 @@ const roleBasedNavItems = {
       module: "hrm",
       children: [
         { label: "HR Dashboard", path: "/hr/dashboard" },
-        { label: "HR Policies", path: "/hr/policies" },
+        { label: "Company Departments", path: "/hr/departments" },
         { label: "Employee Records", path: "/hr/employees" },
         { label: "Payroll Records", path: "/hr/payroll" },
       ],
@@ -158,7 +158,7 @@ const roleBasedNavItems = {
       module: "hrm",
       children: [
         { label: "HR Dashboard", path: "/hr/dashboard" },
-        { label: "HR Policies", path: "/hr/policies" },
+        { label: "Company Departments", path: "/hr/departments" },
         { label: "Employee Records", path: "/hr/employees" },
         { label: "Payroll Records", path: "/hr/payroll" },
       ],
