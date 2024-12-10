@@ -104,9 +104,9 @@ const roleBasedNavItems = {
       children: [
         { label: "Accounting Dashboard", path: "/accounting/dashboard" },
         { label: "Reports", path: "/accounting/reports" },
-        { label: "Accounting List", path: "" },
-        { label: "Sales", path: "" },
-        { label: "Expenses", path: "" },
+        { label: "Accounting List", path: "/accounting/accountinglist" },
+        { label: "Sales", path: "/accounting/sales" },
+        { label: "Expenses", path: "/accounting/expenses" },
       ],
     },
     {
@@ -133,7 +133,7 @@ const roleBasedNavItems = {
         { label: "HR Files", path: "" },
         { label: "Team Timesheets", path: "" },
         { label: "Leave Records", path: "" },
-        { lable: "Team Expenses", path: "" },
+        { lablel: "Team Expenses", path: "" },
       ],
     },
     {

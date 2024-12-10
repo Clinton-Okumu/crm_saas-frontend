@@ -13,6 +13,11 @@ import ObejectivesList from "./pages/okrapp/ObjectivesList";
 import TaskList from "./pages/okrapp/TaskList";
 import DashboardPage from "./pages/hrm/DashboardPage";
 import DepartmentsPage from "./pages/hrm/DepartmentsPage";
+import AccountingDashboardPage from "./pages/accounting/AccountingDasboardPage"
+import SalesPage from "./pages/accounting/SalesPage";
+import ReportsPage from "./pages/accounting/ReportsPage";
+import ExpensesPage from "./pages/accounting/ExpensesPage";
+import AccountingListPage from "./pages/accounting/AccountingListPage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -132,6 +137,46 @@ function App() {
           element={
             <ProtectedRoute>
               <TaskList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accounting/dashboard"
+          element={
+            <ProtectedRoute>
+              <AccountingDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accounting/accountinglist"
+          element={
+            <ProtectedRoute>
+              <AccountingListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accounting/reports"
+          element={
+            <ProtectedRoute>
+              <ReportsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accounting/expenses"
+          element={
+            <ProtectedRoute>
+              <ExpensesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/accounting/sales"
+          element={
+            <ProtectedRoute>
+              <SalesPage />
             </ProtectedRoute>
           }
         />
