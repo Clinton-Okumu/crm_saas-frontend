@@ -13,7 +13,7 @@ import ObejectivesList from "./pages/okrapp/ObjectivesList";
 import TaskList from "./pages/okrapp/TaskList";
 import DashboardPage from "./pages/hrm/DashboardPage";
 import DepartmentsPage from "./pages/hrm/DepartmentsPage";
-import AccountingDashboardPage from "./pages/accounting/AccountingDasboardPage"
+import AccountingDashboardPage from "./pages/accounting/AccountingDasboardPage";
 import SalesPage from "./pages/accounting/SalesPage";
 import ReportsPage from "./pages/accounting/ReportsPage";
 import ExpensesPage from "./pages/accounting/ExpensesPage";

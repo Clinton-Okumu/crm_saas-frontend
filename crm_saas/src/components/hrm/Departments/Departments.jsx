@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Edit, Trash } from "lucide-react"; // Assuming you're using lucide-react for icons
+import { Edit, Trash } from "lucide-react";
+import { fetchDepartmentRecords } from "../../../services/api"; // API fetch function
 
 const Departments = () => {
   const [departments, setDepartments] = useState([]);
 
-  // Fetch departments from the API (replace with your actual API endpoint)
+  // Fetch departments on component mount
   useEffect(() => {
     const fetchDepartments = async () => {
       try {
-        const response = await fetch("/api/departments/"); // Update with your backend endpoint
-        const data = await response.json();
-        setDepartments(data); // Assuming the response is an array of departments
+        const data = await fetchDepartmentRecords(); // Calling the function to fetch departments
+        setDepartments(data); // Update the state with fetched departments
       } catch (error) {
         console.error("Error fetching departments:", error);
       }
     };
 
     fetchDepartments();
-  }, []);
+  }, []); // Empty dependency array ensures it runs only once on mount
 
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/departments/${id}/`, {
-        method: "DELETE",
+      const response = await fetch(`/api/hrm/departments/${id}/`, {
+        method: "DELETE", // DELETE request to remove the department
       });
       if (response.ok) {
+        // Remove the deleted department from the list in state
         setDepartments(departments.filter((department) => department.id !== id));
       } else {
         alert("Failed to delete the department");
@@ -42,9 +43,12 @@ const Departments = () => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-semibold text-gray-800">Departments</h1>
 
-        {/* Action Buttons: Create Task */}
+        {/* Action Buttons: Create Department */}
         <div className="flex space-x-4">
-          <Link to="/okr/tasks/create" className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600">
+          <Link
+            to="/okr/tasks/create"
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600"
+          >
             Create Department
           </Link>
         </div>
@@ -90,7 +94,7 @@ const Departments = () => {
 
                   {/* Delete Button */}
                   <button
-                    onClick={() => handleDelete(department.id)}
+                    onClick={() => handleDelete(department.id)} // Call handleDelete on click
                     className="text-red-500 hover:text-red-600"
                   >
                     <Trash className="w-5 h-5" />
@@ -106,4 +110,3 @@ const Departments = () => {
 };
 
 export default Departments;
-

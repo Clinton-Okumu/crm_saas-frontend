@@ -134,6 +134,17 @@ export const fetchEmployeeRecords = async () => {
   }
 };
 
+//fucntion to fetch department records
+export const fetchDepartmentRecords = async () => {
+  try {
+    const response = await axios.get(`${API_URL}hrm/departments/`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error fetching department records:", error);
+    throw error;
+  }
+};
+
 //function to fetch hrm records
 export const fetchPayrollRecords = async () => {
   try {

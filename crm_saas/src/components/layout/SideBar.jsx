@@ -20,22 +20,22 @@ import { logoutUser } from "../../services/api.js";
 const handleLogout = async () => {
   try {
     const refreshToken =
-      localStorage.getItem('refresh_token') || sessionStorage.getItem('refresh_token');
+      localStorage.getItem("refresh_token") ||
+      sessionStorage.getItem("refresh_token");
 
     await logoutUser(refreshToken);
 
     localStorage.clear();
     sessionStorage.clear();
-    delete axios.defaults.headers.common['Authorization'];
-    window.location.href = '/login';
+    delete axios.defaults.headers.common["Authorization"];
+    window.location.href = "/login";
   } catch (error) {
-    console.error('Logout failed:', error);
+    console.error("Logout failed:", error);
     localStorage.clear();
     sessionStorage.clear();
-    window.location.href = '/login';
+    window.location.href = "/login";
   }
 };
-
 
 // Constant Nav Items (always visible to all users)
 const constantNavItems = [
@@ -392,7 +392,7 @@ SidebarItem.propTypes = {
     PropTypes.shape({
       label: PropTypes.string.isRequired,
       path: PropTypes.string.isRequired,
-    })
+    }),
   ),
   badge: PropTypes.string,
 };
@@ -442,4 +442,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
