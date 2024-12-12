@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash } from "lucide-react"; // Assuming you're using lucide-react for icons
+import { fetchEmployeeRecords } from "../../../services/api";
 
 const EmployeeRecord = () => {
   const [employees, setEmployees] = useState([]);
@@ -9,9 +10,8 @@ const EmployeeRecord = () => {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch("/api/employees/"); // Update with your backend endpoint
-        const data = await response.json();
-        setEmployees(data); // Assuming the response is an array of employees
+        const data = await fetchEmployeeRecords();
+        setEmployees(data);
       } catch (error) {
         console.error("Error fetching employees:", error);
       }

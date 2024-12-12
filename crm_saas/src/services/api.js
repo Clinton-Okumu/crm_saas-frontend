@@ -145,7 +145,7 @@ export const fetchDepartmentRecords = async () => {
   }
 };
 
-//function to fetch hrm records
+//function to fetch hrm payroll records
 export const fetchPayrollRecords = async () => {
   try {
     const response = await axios.get(`${API_URL}payroll-records/`);
@@ -166,3 +166,4 @@ export const fetchAccountingRecords = async () => {
     throw error;
   }
 };
+
