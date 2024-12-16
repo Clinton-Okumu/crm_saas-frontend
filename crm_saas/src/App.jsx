@@ -18,6 +18,10 @@ import SalesPage from "./pages/accounting/SalesPage";
 import ReportsPage from "./pages/accounting/ReportsPage";
 import ExpensesPage from "./pages/accounting/ExpensesPage";
 import AccountingListPage from "./pages/accounting/AccountingListPage";
+import CrmDashboardPage from "./pages/crm/CrmDashboardPage";
+import CustomerListPage from "./pages/crm/CustomerListPage";
+import ContactListPage from "./pages/crm/ContactListPage";
+import InteractionListPage from "./pages/crm/InteractionListPage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -177,6 +181,38 @@ function App() {
           element={
             <ProtectedRoute>
               <SalesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crm/dashboard"
+          element={
+            <ProtectedRoute>
+              <CrmDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crm/customers"
+          element={
+            <ProtectedRoute>
+              <CustomerListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crm/contacts"
+          element={
+            <ProtectedRoute>
+              <ContactListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/crm/interactions"
+          element={
+            <ProtectedRoute>
+              <InteractionListPage />
             </ProtectedRoute>
           }
         />

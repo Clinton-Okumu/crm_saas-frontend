@@ -167,3 +167,46 @@ export const fetchAccountingRecords = async () => {
   }
 };
 
+//fution to fetch accounting reports
+export const fetchAccountingReports = async () => {
+  try {
+    const response = await axios.get(`${API_URL}accounting-reports/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fecthing accounting reports", error);
+    throw error;
+  }
+};
+
+//function to fetch interaction
+export const fetchInteractionRecords = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}crm/interactions/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching interaction records:", error);
+    throw error;
+  }
+};
+
+//fetch customer records
+export const fetchCustomerRecords = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}crm/customers/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching customer records:", error);
+    throw error;
+  }
+};
+
+//fetch contact records
+export const fetchContactRecords = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}crm/contacts/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching contact records:", error);
+    throw error;
+  }
+};
