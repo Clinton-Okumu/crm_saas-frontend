@@ -178,6 +178,77 @@ export const fetchAccountingReports = async () => {
   }
 };
 
+// Fetch all invoices
+export const fetchInvoices = async () => {
+  try {
+    const response = await axios.get(`${API_URL}invoices/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching invoices:", error);
+    throw error;
+  }
+};
+
+// Fetch a specific invoice by ID
+export const fetchInvoiceById = async (invoiceId) => {
+  try {
+    const response = await axios.get(`${API_URL}invoices/${invoiceId}/`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching invoice ${invoiceId}:`, error);
+    throw error;
+  }
+};
+
+// Create a new invoice
+export const createInvoice = async (invoiceData) => {
+  try {
+    const response = await axios.post(`${API_URL}invoices/`, invoiceData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating invoice:", error);
+    throw error;
+  }
+};
+
+// Update an existing invoice
+export const updateInvoice = async (invoiceId, invoiceData) => {
+  try {
+    const response = await axios.patch(
+      `${API_URL}invoices/${invoiceId}/`,
+      invoiceData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error updating invoice ${invoiceId}:`, error);
+    throw error;
+  }
+};
+
+// Delete an invoice
+export const deleteInvoice = async (invoiceId) => {
+  try {
+    await axios.delete(`${API_URL}invoices/${invoiceId}/`);
+  } catch (error) {
+    console.error(`Error deleting invoice ${invoiceId}:`, error);
+    throw error;
+  }
+};
+
+// Perform an action on an invoice
+export const performInvoiceAction = async (invoiceId, actionData) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}invoices/${invoiceId}/actions/`,
+      actionData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error performing action on invoice ${invoiceId}:`, error);
+    throw error;
+  }
+};
+
 //function to fetch interaction
 export const fetchInteractionRecords = async (id) => {
   try {
@@ -210,3 +281,18 @@ export const fetchContactRecords = async (id) => {
     throw error;
   }
 };
+
+//fetch transaction records
+export const fetchSalesTransactions = async () => {
+  try {
+  } catch (error) {}
+};
+
+//delete transaction
+export const deleteTransaction = async (id) => {};
+
+//fetch expense transaction
+export const fetchExpensesTransaction = async () => {};
+
+//delete expense
+export const deleteExpense = async (id) => {};

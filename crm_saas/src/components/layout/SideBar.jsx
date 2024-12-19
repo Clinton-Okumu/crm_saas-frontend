@@ -103,8 +103,8 @@ const roleBasedNavItems = {
       module: "accounting",
       children: [
         { label: "Accounting Dashboard", path: "/accounting/dashboard" },
-        { label: "Reports", path: "/accounting/reports" },
-        { label: "Accounting List", path: "/accounting/accountinglist" },
+        { label: "Invoice", path: "/accounting/invoice" },
+        { label: "Accounts", path: "/accounting/accountinglist" },
         { label: "Sales", path: "/accounting/sales" },
         { label: "Expenses", path: "/accounting/expenses" },
       ],

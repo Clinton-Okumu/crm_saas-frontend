@@ -15,7 +15,7 @@ import DashboardPage from "./pages/hrm/DashboardPage";
 import DepartmentsPage from "./pages/hrm/DepartmentsPage";
 import AccountingDashboardPage from "./pages/accounting/AccountingDasboardPage";
 import SalesPage from "./pages/accounting/SalesPage";
-import ReportsPage from "./pages/accounting/ReportsPage";
+import InvoicePage from "./pages/accounting/InvoicePage";
 import ExpensesPage from "./pages/accounting/ExpensesPage";
 import AccountingListPage from "./pages/accounting/AccountingListPage";
 import CrmDashboardPage from "./pages/crm/CrmDashboardPage";
@@ -161,10 +161,10 @@ function App() {
           }
         />
         <Route
-          path="/accounting/reports"
+          path="/accounting/invoice"
           element={
             <ProtectedRoute>
-              <ReportsPage />
+              <InvoicePage />
             </ProtectedRoute>
           }
         />
