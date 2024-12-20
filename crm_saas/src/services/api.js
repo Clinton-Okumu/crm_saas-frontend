@@ -285,14 +285,43 @@ export const fetchContactRecords = async (id) => {
 //fetch transaction records
 export const fetchSalesTransactions = async () => {
   try {
-  } catch (error) {}
+    const response = await axios.get(`${API_URL}accounting/transactions/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching sales transactions:", error);
+    throw error;
+  }
 };
 
 //delete transaction
-export const deleteTransaction = async (id) => {};
+export const deleteTransaction = async (id) => {
+  try {
+    await axios.delete(`${API_URL}accounting/transactions/${id}/`);
+  } catch (error) {
+    console.error("Error deleting transaction:", error);
+    throw error;
+  }
+};
 
 //fetch expense transaction
-export const fetchExpensesTransaction = async () => {};
+export const fetchExpensesTransaction = async () => {
+  try {
+    const response = await axios.get(`${API_URL}accounting/transactions/`, {
+      params: { transaction_type: "expense" }, // Assuming this is the filter field
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching expenses transactions:", error);
+    throw error;
+  }
+};
 
 //delete expense
-export const deleteExpense = async (id) => {};
+export const deleteExpense = async (id) => {
+  try {
+    await axios.delete(`${API_URL}accounting/transactions/${id}/`); // Assuming expenses are transactions
+  } catch (error) {
+    console.error("Error deleting expense:", error);
+    throw error;
+  }
+};
