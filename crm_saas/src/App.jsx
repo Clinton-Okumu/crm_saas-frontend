@@ -22,6 +22,7 @@ import CrmDashboardPage from "./pages/crm/CrmDashboardPage";
 import CustomerListPage from "./pages/crm/CustomerListPage";
 import ContactListPage from "./pages/crm/ContactListPage";
 import InteractionListPage from "./pages/crm/InteractionListPage";
+import MeetingsPage from "./pages/meetings/MeetingsPage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -213,6 +214,14 @@ function App() {
           element={
             <ProtectedRoute>
               <InteractionListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/meetings"
+          element={
+            <ProtectedRoute>
+              <MeetingsPage />
             </ProtectedRoute>
           }
         />
