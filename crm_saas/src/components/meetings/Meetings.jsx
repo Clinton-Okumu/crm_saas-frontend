@@ -3,7 +3,7 @@ import { Edit } from "lucide-react"; // Importing the Edit icon from Lucide
 
 const Meetings = () => {
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-4xl font-extrabold text-gray-800">Meetings</h1>
