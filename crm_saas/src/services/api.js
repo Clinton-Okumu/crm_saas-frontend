@@ -112,6 +112,25 @@ export const fetchObjectives = async () => {
   }
 };
 
+//create objective
+export const createObjective = async (objectiveData) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}okr/objectives/`,
+      objectiveData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      },
+    );
+    return response.data; // Return the response from the API
+  } catch (error) {
+    console.error("Error creating objective:", error);
+    throw error; // Re-throw the error to handle it in the component
+  }
+};
+
 //function to fetch tasks
 export const fetchTasks = async () => {
   try {
