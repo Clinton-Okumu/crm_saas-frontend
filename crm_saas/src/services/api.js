@@ -344,3 +344,72 @@ export const deleteExpense = async (id) => {
     throw error;
   }
 };
+
+//fetch meeting records
+export const fetchMeetings = async () => {
+  try {
+    const response = await axios.get(`${API_URL}meeting_mgmt/meetings/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching meeting records:", error);
+    throw error;
+  }
+};
+
+// Fetch a single meeting by ID
+export const fetchMeetingById = async (id) => {
+  try {
+    const response = await axios.get(`${API_URL}meeting_mgmt/meetings/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching meeting:", error);
+    throw error;
+  }
+};
+
+// Create a new meeting
+export const createMeeting = async (meetingData) => {
+  try {
+    const response = await axios.post(`${API_URL}meetings/`, meetingData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating meeting:", error);
+    throw error;
+  }
+};
+
+// Update a meeting (PUT)
+export const updateMeeting = async (id, meetingData) => {
+  try {
+    const response = await axios.put(`${API_URL}meetings/${id}/`, meetingData);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating meeting:", error);
+    throw error;
+  }
+};
+
+// Update a meeting (PATCH)
+export const updateMeetingPartial = async (id, meetingData) => {
+  try {
+    const response = await axios.patch(
+      `${API_URL}meetings/${id}/`,
+      meetingData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating meeting:", error);
+    throw error;
+  }
+};
+
+// Delete a meeting
+export const deleteMeeting = async (id) => {
+  try {
+    await axios.delete(`${API_URL}meetings/${id}/`);
+    return true;
+  } catch (error) {
+    console.error("Error deleting meeting:", error);
+    throw error;
+  }
+};

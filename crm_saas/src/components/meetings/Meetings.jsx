@@ -1,7 +1,49 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Edit } from "lucide-react"; // Importing the Edit icon from Lucide
+import { Edit } from "lucide-react";
+import { fetchMeetings } from "../../services/api.js";
 
 const Meetings = () => {
+  const [meetings, setMeetings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const loadMeetings = async () => {
+      try {
+        const data = await fetchMeetings();
+        console.log("Fetched data:", data);
+        if (data && data.results) {
+          setMeetings(data.results);
+        } else {
+          setError("Invalid data format received from the server.");
+        }
+      } catch (error) {
+        console.error("Failed to load meetings:", error);
+        setError("Failed to load meetings. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMeetings();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-gray-600">Loading meetings...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 bg-gray-50">
       {/* Header */}
@@ -28,43 +70,34 @@ const Meetings = () => {
 
         {/* Meetings List */}
         <div className="space-y-6">
-          {/* Meeting Card */}
-          <div className="flex justify-between items-center bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800">
-                Team Standup
-              </h3>
-              <p className="text-sm text-gray-600">
-                Date: Jan 15, 2025 - Time: 10:00 AM
-              </p>
-            </div>
-            <Link
-              to="/meetings/1/edit"
-              className="flex items-center text-indigo-500 font-medium hover:text-indigo-700 transition"
-            >
-              Edit
-              <Edit className="ml-1 w-4 h-4" />
-            </Link>
-          </div>
-
-          {/* Another Meeting Card */}
-          <div className="flex justify-between items-center bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800">
-                Project Kickoff
-              </h3>
-              <p className="text-sm text-gray-600">
-                Date: Jan 20, 2025 - Time: 3:00 PM
-              </p>
-            </div>
-            <Link
-              to="/meetings/2/edit"
-              className="flex items-center text-indigo-500 font-medium hover:text-indigo-700 transition"
-            >
-              Edit
-              <Edit className="ml-1 w-4 h-4" />
-            </Link>
-          </div>
+          {meetings.length > 0 ? (
+            meetings.map((meeting) => (
+              <div
+                key={meeting.id}
+                className="flex justify-between items-center bg-gradient-to-r from-gray-100 to-gray-50 px-6 py-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+              >
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    {meeting.title}
+                  </h3>
+                  <p className="text-sm text-gray-600">
+                    Date: {new Date(meeting.meeting_time).toLocaleDateString()}{" "}
+                    - Time:{" "}
+                    {new Date(meeting.meeting_time).toLocaleTimeString()}
+                  </p>
+                </div>
+                <Link
+                  to={`/meetings/${meeting.id}/edit`}
+                  className="flex items-center text-indigo-500 font-medium hover:text-indigo-700 transition"
+                >
+                  Edit
+                  <Edit className="ml-1 w-4 h-4" />
+                </Link>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-600">No meetings found.</p>
+          )}
         </div>
       </div>
     </div>
