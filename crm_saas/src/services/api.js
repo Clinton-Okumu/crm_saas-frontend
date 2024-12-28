@@ -406,8 +406,10 @@ export const updateMeetingPartial = async (id, meetingData) => {
 // Delete a meeting
 export const deleteMeeting = async (id) => {
   try {
-    await axios.delete(`${API_URL}meetings/${id}/`);
-    return true;
+    const response = await axios.delete(
+      `${API_URL}meeting_mgmt/meetings/${id}/`,
+    );
+    return response.status === 204;
   } catch (error) {
     console.error("Error deleting meeting:", error);
     throw error;

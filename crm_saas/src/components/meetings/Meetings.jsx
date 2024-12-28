@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Edit } from "lucide-react";
-import { fetchMeetings } from "../../services/api.js";
+import { Edit, Trash } from "lucide-react";
+import { fetchMeetings, deleteMeeting } from "../../services/api.js"; // Import deleteMeeting
 
 const Meetings = () => {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch meetings data
   useEffect(() => {
     const loadMeetings = async () => {
       try {
@@ -27,6 +28,24 @@ const Meetings = () => {
     };
     loadMeetings();
   }, []);
+
+  // Handle delete meeting
+  const handleDelete = async (meetingId) => {
+    if (window.confirm("Are you sure you want to delete this meeting?")) {
+      try {
+        const success = await deleteMeeting(meetingId); // Use deleteMeeting from api.js
+        if (success) {
+          // Remove the deleted meeting from the state
+          setMeetings((prevMeetings) =>
+            prevMeetings.filter((meeting) => meeting.id !== meetingId),
+          );
+        }
+      } catch (error) {
+        console.error("Error deleting meeting:", error);
+        setError("Failed to delete meeting. Please try again later.");
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -85,14 +104,31 @@ const Meetings = () => {
                     - Time:{" "}
                     {new Date(meeting.meeting_time).toLocaleTimeString()}
                   </p>
+                  <a
+                    href={meeting.google_meet_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-blue-500 hover:underline"
+                  >
+                    {meeting.google_meet_link}
+                  </a>
                 </div>
-                <Link
-                  to={`/meetings/${meeting.id}/edit`}
-                  className="flex items-center text-indigo-500 font-medium hover:text-indigo-700 transition"
-                >
-                  Edit
-                  <Edit className="ml-1 w-4 h-4" />
-                </Link>
+                <div className="flex space-x-4">
+                  <Link
+                    to={`/meetings/${meeting.id}/edit`}
+                    className="flex items-center text-indigo-500 font-medium hover:text-indigo-700 transition"
+                  >
+                    Edit
+                    <Edit className="ml-1 w-4 h-4" />
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(meeting.id)}
+                    className="flex items-center text-red-500 font-medium hover:text-red-700 transition"
+                  >
+                    Delete
+                    <Trash className="ml-1 w-4 h-4" />
+                  </button>
+                </div>
               </div>
             ))
           ) : (
