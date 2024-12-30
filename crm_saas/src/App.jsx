@@ -24,6 +24,8 @@ import ContactListPage from "./pages/crm/ContactListPage";
 import InteractionListPage from "./pages/crm/InteractionListPage";
 import MeetingsPage from "./pages/meetings/MeetingsPage";
 import CreateMeetingPage from "./pages/meetings/CreateMeetingsPage";
+import CreateTask from "./pages/okrapp/CreateTaskPage";
+import ObjectiveCreatePage from "./pages/okrapp/NewObjectivePage";
 
 const ProtectedRoute = ({ children }) => {
   const accessToken =
@@ -231,6 +233,22 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateMeetingPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/tasks/create"
+          element={
+            <ProtectedRoute>
+              <CreateTask />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/okr/objectives/create"
+          element={
+            <ProtectedRoute>
+              <ObjectiveCreatePage />
             </ProtectedRoute>
           }
         />

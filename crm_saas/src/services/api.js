@@ -142,6 +142,28 @@ export const fetchTasks = async () => {
   }
 };
 
+//function to create task
+export const createTask = async (taskData) => {
+  try {
+    const response = await axios.post(`${API_URL}okr/tasks/`, taskData);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating task:", error);
+    throw error;
+  }
+};
+
+//function to delete task
+export const deleteTask = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}okr/tasks/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting task:", error);
+    throw error;
+  }
+};
+
 //function to fetch hrm employee records
 export const fetchEmployeeRecords = async () => {
   try {
