@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
-import { fetchInteractionRecords } from "../../services/api.js";
+import { fetchInteractionRecords } from "../../services/api.js"; // Reusable API fetch function
 
 const Interactions = () => {
   const [interactions, setInteractions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch interactions on component mount
   useEffect(() => {
     const fetchInteractions = async () => {
       try {
-        const data = await fetchInteractionRecords(); // Fetch interactions data from the API
-        setInteractions(data); // Update the state with fetched interactions
+        const response = await fetchInteractionRecords(); // Fetch interactions from the API
+        // Extract the `results` array from the paginated response
+        if (response && Array.isArray(response.results)) {
+          setInteractions(response.results); // Update the state with fetched interactions
+        } else {
+          console.error(
+            "Expected an array of interactions, but got:",
+            response,
+          );
+          setError(new Error("Invalid data format received from the server."));
+        }
       } catch (error) {
         console.error("Error fetching interactions:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false); // Set loading to false after the request completes
       }
     };
 
     fetchInteractions();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []); // Empty dependency array ensures it runs only once on mount
 
   // Handle delete action
   const handleDelete = async (id) => {
@@ -27,7 +41,7 @@ const Interactions = () => {
         method: "DELETE", // DELETE request to remove the interaction
       });
       if (response.ok) {
-        // Remove the deleted interaction from the state list
+        // Remove the deleted interaction from the list in state
         setInteractions(
           interactions.filter((interaction) => interaction.id !== id),
         );
@@ -39,6 +53,24 @@ const Interactions = () => {
     }
   };
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="p-6 bg-white-50">
+        <p className="text-gray-600">Loading interactions...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="p-6 bg-white-50">
+        <p className="text-red-500">Error: {error.message}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 bg-white-50">
       {/* Header */}
@@ -49,7 +81,7 @@ const Interactions = () => {
         <div className="flex space-x-4">
           <Link
             to="/interactions/create"
-            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600"
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600"
           >
             <Edit className="mr-2" />
             Create Interaction
@@ -95,10 +127,10 @@ const Interactions = () => {
                   {interaction.type}
                 </td>
                 <td className="py-3 px-4 text-sm text-gray-600">
-                  {interaction.customer.name}
+                  {interaction.customer_name}
                 </td>
                 <td className="py-3 px-4 text-sm text-gray-600">
-                  {interaction.contact ? interaction.contact.name : "N/A"}
+                  {interaction.contact_name || "N/A"}
                 </td>
                 <td className="py-3 px-4 text-sm text-gray-600">
                   {interaction.notes}

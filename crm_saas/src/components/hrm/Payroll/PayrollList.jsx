@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash } from "lucide-react"; // Assuming you're using lucide-react for icons
+import { fectchSalaries } from "../../../services/api";
 
 const PayrollList = () => {
   const [salaries, setSalaries] = useState([]);
@@ -9,9 +10,8 @@ const PayrollList = () => {
   useEffect(() => {
     const fetchSalaries = async () => {
       try {
-        const response = await fetch("/api/salaries/"); // Update with your backend endpoint
-        const data = await response.json();
-        setSalaries(data); // Assuming the response is an array of salaries
+        const data = await fectchSalaries();
+        setSalaries(data);
       } catch (error) {
         console.error("Error fetching salary data:", error);
       }
@@ -40,7 +40,9 @@ const PayrollList = () => {
     <div className="p-6 bg-white-50">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-800">Employee Payroll</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">
+          Employee Payroll
+        </h1>
 
         {/* Action Buttons: Create Payroll */}
         <div className="flex space-x-4">
@@ -57,11 +59,21 @@ const PayrollList = () => {
       <table className="min-w-full bg-white border border-gray-200 rounded-lg">
         <thead>
           <tr className="border-b bg-gray-100">
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Employee</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Basic Salary</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Bonus</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Effective Date</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Actions</th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Employee
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Basic Salary
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Bonus
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Effective Date
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -73,11 +85,19 @@ const PayrollList = () => {
             </tr>
           ) : (
             salaries.map((salary) => (
-              <tr key={salary.id} className="border-b">
-                <td className="py-3 px-4 text-sm text-gray-800">{salary.employee.first_name} {salary.employee.last_name}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{salary.basic_salary}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{salary.bonus || "N/A"}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{salary.effective_date}</td>
+              <tr key={salary.employee} className="border-b">
+                <td className="py-3 px-4 text-sm text-gray-800">
+                  {salary.employee} {/* Display the employee name directly */}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {salary.basic_salary}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {salary.bonus || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {salary.effective_date}
+                </td>
                 <td className="py-3 px-4 flex space-x-2 text-sm">
                   {/* Edit Button */}
                   <Link
@@ -105,4 +125,3 @@ const PayrollList = () => {
 };
 
 export default PayrollList;
-

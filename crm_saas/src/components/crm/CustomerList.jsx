@@ -1,24 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
-import { fetchCustomerRecords } from "../../services/api.js"; // API fetch function
+import { fetchCustomerRecords } from "../../services/api.js"; // Reusable API fetch function
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Fetch customers on component mount
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const data = await fetchCustomerRecords(); // Fetch customers data from the API
-        setCustomers(data); // Update the state with fetched customers
+        const response = await fetchCustomerRecords(); // Fetch customers from the API
+        // Extract the `results` array from the paginated response
+        if (response && Array.isArray(response.results)) {
+          setCustomers(response.results); // Update the state with fetched customers
+        } else {
+          console.error("Expected an array of customers, but got:", response);
+          setError(new Error("Invalid data format received from the server."));
+        }
       } catch (error) {
         console.error("Error fetching customers:", error);
+        setError(error);
+      } finally {
+        setIsLoading(false); // Set loading to false after the request completes
       }
     };
 
     fetchCustomers();
-  }, []); // Empty dependency array ensures this runs once on mount
+  }, []); // Empty dependency array ensures it runs only once on mount
 
   // Handle delete action
   const handleDelete = async (id) => {
@@ -27,7 +38,7 @@ const Customers = () => {
         method: "DELETE", // DELETE request to remove the customer
       });
       if (response.ok) {
-        // Remove the deleted customer from the state list
+        // Remove the deleted customer from the list in state
         setCustomers(customers.filter((customer) => customer.id !== id));
       } else {
         alert("Failed to delete the customer");
@@ -36,6 +47,24 @@ const Customers = () => {
       console.error("Error deleting customer:", error);
     }
   };
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="p-6 bg-white-50">
+        <p className="text-gray-600">Loading customers...</p>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="p-6 bg-white-50">
+        <p className="text-red-500">Error: {error.message}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 bg-white-50">
@@ -47,7 +76,7 @@ const Customers = () => {
         <div className="flex space-x-4">
           <Link
             to="/customers/create"
-            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600"
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600"
           >
             <Edit className="mr-2" />
             Create Customer

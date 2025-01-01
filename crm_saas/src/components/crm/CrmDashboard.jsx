@@ -17,14 +17,14 @@ const CrmDashboard = () => {
             Add New Contact
           </Link>
           <Link
-            to="/tasks"
+            to="/crm/contacts"
             className="flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600"
           >
             <Briefcase className="mr-2 text-xl" />
-            View Tasks
+            Contacts list
           </Link>
           <Link
-            to="/interactions"
+            to="/crm/interactions"
             className="flex items-center bg-orange-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-orange-600"
           >
             <Users className="mr-2 text-xl" />

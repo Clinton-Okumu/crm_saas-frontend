@@ -40,11 +40,16 @@ const EmployeeRecord = () => {
     <div className="p-6 bg-white-50">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-semibold text-gray-800">Employee Record</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">
+          Employee Record
+        </h1>
 
         {/* Action Buttons: Create Task */}
         <div className="flex space-x-4">
-          <Link to="/okr/tasks/create" className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600">
+          <Link
+            to="/okr/tasks/create"
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600"
+          >
             Add Employee
           </Link>
         </div>
@@ -54,15 +59,33 @@ const EmployeeRecord = () => {
       <table className="min-w-full bg-white border border-gray-200 rounded-lg">
         <thead>
           <tr className="border-b bg-gray-100">
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">First Name</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Last Name</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Email</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Phone</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Department</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Position</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Hire Date</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Status</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Actions</th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              First Name
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Last Name
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Email
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Phone
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Department
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Position
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Hire Date
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Status
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -74,14 +97,28 @@ const EmployeeRecord = () => {
             </tr>
           ) : (
             employees.map((employee) => (
-              <tr key={employee.id} className="border-b">
-                <td className="py-3 px-4 text-sm text-gray-800">{employee.first_name}</td>
-                <td className="py-3 px-4 text-sm text-gray-800">{employee.last_name}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{employee.email}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{employee.phone}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{employee.department.name}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{employee.position.name}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{employee.hire_date}</td>
+              <tr key={employee.id || employee.email} className="border-b">
+                <td className="py-3 px-4 text-sm text-gray-800">
+                  {employee.first_name || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-800">
+                  {employee.last_name || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {employee.email || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {employee.phone || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {employee.department?.name || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {employee.position?.name || "N/A"}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {employee.hire_date || "N/A"}
+                </td>
                 <td className="py-3 px-4 text-sm text-gray-600">
                   {employee.is_active ? "Active" : "Inactive"}
                 </td>
@@ -112,4 +149,3 @@ const EmployeeRecord = () => {
 };
 
 export default EmployeeRecord;
-
