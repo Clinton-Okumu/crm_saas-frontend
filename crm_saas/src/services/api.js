@@ -186,25 +186,32 @@ export const fetchDepartmentRecords = async () => {
   }
 };
 
-//function to fetch hrm payroll records
-export const fetchPayrollRecords = async () => {
+//function to fetch salary records
+export const fectchSalaries = async () => {
   try {
-    const response = await axios.get(`${API_URL}payroll-records/`);
-    return response.data;
+    const response = await axios.get(`${API_URL}hrm/salaries/`);
+    return response.data.results;
   } catch (error) {
-    console.error("Error fetching payroll records:", error);
+    console.error("Error fetching salary records:", error);
     throw error;
   }
 };
 
-//function to fetch accounting records
+// Function to fetch accounting records
 export const fetchAccountingRecords = async () => {
   try {
-    const response = await axios.get(`${API_URL}`);
-    return response.data;
+    const response = await axios.get(`${API_URL}accounting/accounts/`);
+    // Extract the `results` array if the response is paginated
+    const data = response.data.results || response.data;
+    if (Array.isArray(data)) {
+      return data;
+    } else {
+      console.error("Expected an array of accounts, but got:", data);
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching accounting records:", error);
-    throw error;
+    throw error; // Re-throw the error to handle it in the component
   }
 };
 
@@ -219,11 +226,16 @@ export const fetchAccountingReports = async () => {
   }
 };
 
-// Fetch all invoices
 export const fetchInvoices = async () => {
   try {
-    const response = await axios.get(`${API_URL}invoices/`);
-    return response.data;
+    const response = await axios.get(`${API_URL}accounting/invoices/`);
+    const data = response.data.results || response.data;
+    if (Array.isArray(data)) {
+      return data;
+    } else {
+      console.error("Expected an array of invoices, but got:", data);
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching invoices:", error);
     throw error;
@@ -291,9 +303,9 @@ export const performInvoiceAction = async (invoiceId, actionData) => {
 };
 
 //function to fetch interaction
-export const fetchInteractionRecords = async (id) => {
+export const fetchInteractionRecords = async () => {
   try {
-    const response = await axios.get(`${API_URL}crm/interactions/${id}/`);
+    const response = await axios.get(`${API_URL}crm/interactions/`);
     return response.data;
   } catch (error) {
     console.error("Error fetching interaction records:", error);
@@ -302,9 +314,9 @@ export const fetchInteractionRecords = async (id) => {
 };
 
 //fetch customer records
-export const fetchCustomerRecords = async (id) => {
+export const fetchCustomerRecords = async () => {
   try {
-    const response = await axios.get(`${API_URL}crm/customers/${id}/`);
+    const response = await axios.get(`${API_URL}crm/customers/`);
     return response.data;
   } catch (error) {
     console.error("Error fetching customer records:", error);
@@ -313,9 +325,9 @@ export const fetchCustomerRecords = async (id) => {
 };
 
 //fetch contact records
-export const fetchContactRecords = async (id) => {
+export const fetchContactRecords = async () => {
   try {
-    const response = await axios.get(`${API_URL}crm/contacts/${id}/`);
+    const response = await axios.get(`${API_URL}crm/contacts/`);
     return response.data;
   } catch (error) {
     console.error("Error fetching contact records:", error);
@@ -344,13 +356,18 @@ export const deleteTransaction = async (id) => {
   }
 };
 
-//fetch expense transaction
 export const fetchExpensesTransaction = async () => {
   try {
-    const response = await axios.get(`${API_URL}accounting/transactions/`, {
+    const response = await axios.get(`${API_URL}/accounting/transactions/`, {
       params: { transaction_type: "expense" }, // Assuming this is the filter field
     });
-    return response.data;
+    const data = response.data.results || response.data;
+    if (Array.isArray(data)) {
+      return data;
+    } else {
+      console.error("Expected an array of transactions, but got:", data);
+      return [];
+    }
   } catch (error) {
     console.error("Error fetching expenses transactions:", error);
     throw error;

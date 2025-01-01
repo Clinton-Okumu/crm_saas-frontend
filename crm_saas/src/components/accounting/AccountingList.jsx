@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Edit, Trash } from "lucide-react";
-import { fetchAccountingRecords } from "../../services/api.js"; // Ensure this path matches your API service location
+import { fetchAccountingRecords } from "../../services/api.js"; // Import the function
 
 const AccountingList = () => {
   const [accounts, setAccounts] = useState([]);
@@ -11,6 +11,7 @@ const AccountingList = () => {
     const getAccounts = async () => {
       try {
         const data = await fetchAccountingRecords();
+        console.log("Fetched data:", data); // Log the fetched data
         setAccounts(data);
       } catch (error) {
         console.error("Error fetching accounts:", error);
@@ -33,14 +34,16 @@ const AccountingList = () => {
     }
   };
 
+  console.log("Accounts state:", accounts); // Log the accounts state
+
   return (
-    <div className="p-6 bg-white-50">
+    <div className="p-6 bg-gray-50">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-semibold text-gray-800">Accounts</h1>
         <div className="flex space-x-4">
           <Link
             to="/accounts/create"
-            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-600"
+            className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600"
           >
             Create Account
           </Link>
