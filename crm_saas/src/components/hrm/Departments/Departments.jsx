@@ -23,12 +23,17 @@ const Departments = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/hrm/departments/${id}/`, {
-        method: "DELETE", // DELETE request to remove the department
-      });
+      const response = await fetch(
+        ` http://127.0.0.1:8000/api/hrm/departments/${id}/`,
+        {
+          method: "DELETE", // DELETE request to remove the department
+        },
+      );
       if (response.ok) {
         // Remove the deleted department from the list in state
-        setDepartments(departments.filter((department) => department.id !== id));
+        setDepartments(
+          departments.filter((department) => department.id !== id),
+        );
       } else {
         alert("Failed to delete the department");
       }
@@ -58,11 +63,21 @@ const Departments = () => {
       <table className="min-w-full bg-white border border-gray-200 rounded-lg">
         <thead>
           <tr className="border-b bg-gray-100">
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Department Name</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Description</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Manager</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Status</th>
-            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">Actions</th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Department Name
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Description
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Manager
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Status
+            </th>
+            <th className="py-2 px-4 text-left text-sm font-medium text-gray-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -75,8 +90,12 @@ const Departments = () => {
           ) : (
             departments.map((department) => (
               <tr key={department.id} className="border-b">
-                <td className="py-3 px-4 text-sm text-gray-800">{department.name}</td>
-                <td className="py-3 px-4 text-sm text-gray-600">{department.description}</td>
+                <td className="py-3 px-4 text-sm text-gray-800">
+                  {department.name}
+                </td>
+                <td className="py-3 px-4 text-sm text-gray-600">
+                  {department.description}
+                </td>
                 <td className="py-3 px-4 text-sm text-gray-600">
                   {department.manager ? department.manager.name : "N/A"}
                 </td>

@@ -131,6 +131,17 @@ export const createObjective = async (objectiveData) => {
   }
 };
 
+//function to delete objective
+export const deleteObjective = async (id) => {
+  try {
+    const response = await axios.delete(`${API_URL}okr/objectives/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting objective:", error);
+    throw error;
+  }
+};
+
 //function to fetch tasks
 export const fetchTasks = async () => {
   try {

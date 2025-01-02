@@ -23,9 +23,12 @@ const EmployeeRecord = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/employees/${id}/`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        ` http://127.0.0.1:8000/api/hrm/employees/${id}/`,
+        {
+          method: "DELETE",
+        },
+      );
       if (response.ok) {
         setEmployees(employees.filter((employee) => employee.id !== id));
       } else {
