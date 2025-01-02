@@ -34,9 +34,12 @@ const Customers = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/crm/customers/${id}/`, {
-        method: "DELETE", // DELETE request to remove the customer
-      });
+      const response = await fetch(
+        ` http://127.0.0.1:8000/api/crm/customers/${id}/`,
+        {
+          method: "DELETE", // DELETE request to remove the customer
+        },
+      );
       if (response.ok) {
         // Remove the deleted customer from the list in state
         setCustomers(customers.filter((customer) => customer.id !== id));

@@ -26,7 +26,9 @@ const AccountingList = () => {
     if (!window.confirm("Are you sure you want to delete this account?"))
       return;
     try {
-      await fetch(`/api/accounts/${id}/`, { method: "DELETE" });
+      await fetch(`/ http://127.0.0.1:8000/api/acccounting/accounts/${id}/`, {
+        method: "DELETE",
+      });
       setAccounts(accounts.filter((account) => account.id !== id));
     } catch (error) {
       console.error("Error deleting account:", error);

@@ -37,9 +37,12 @@ const Interactions = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/crm/interactions/${id}/`, {
-        method: "DELETE", // DELETE request to remove the interaction
-      });
+      const response = await fetch(
+        ` http://127.0.0.1:8000/api/crm/interactions/${id}/`,
+        {
+          method: "DELETE", // DELETE request to remove the interaction
+        },
+      );
       if (response.ok) {
         // Remove the deleted interaction from the list in state
         setInteractions(

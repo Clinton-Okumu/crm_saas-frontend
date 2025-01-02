@@ -23,9 +23,12 @@ const PayrollList = () => {
   // Handle delete action
   const handleDelete = async (id) => {
     try {
-      const response = await fetch(`/api/salaries/${id}/`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        ` http://127.0.0.1:8000/api/hrm/salaries/${id}/`,
+        {
+          method: "DELETE",
+        },
+      );
       if (response.ok) {
         setSalaries(salaries.filter((salary) => salary.id !== id));
       } else {

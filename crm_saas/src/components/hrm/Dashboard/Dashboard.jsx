@@ -10,21 +10,21 @@ const Dashboard = () => {
         <h1 className="text-3xl font-extrabold text-gray-800">HR Dashboard</h1>
         <div className="flex space-x-6">
           <Link
-            to="/departments"
+            to="/hr/departments"
             className="flex items-center bg-blue-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-600 transition-colors duration-300"
           >
             <Briefcase className="mr-2 text-xl" />
             Departments
           </Link>
           <Link
-            to="/employees"
+            to="/hr/employees"
             className="flex items-center bg-green-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-green-600 transition-colors duration-300"
           >
             <Users className="mr-2 text-xl" />
             Employees
           </Link>
           <Link
-            to="/payroll"
+            to="/hr/payroll"
             className="flex items-center bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg hover:bg-yellow-600 transition-colors duration-300"
           >
             <DollarSign className="mr-2 text-xl" />
@@ -48,7 +48,7 @@ const Dashboard = () => {
           <h3 className="text-2xl font-semibold text-gray-700 mb-3">
             Employees
           </h3>
-          <p className="text-3xl font-bold text-green-600">150 Active</p>
+          <p className="text-3xl font-bold text-green-600">15 Active</p>
         </div>
 
         {/* Payroll Overview Card */}
