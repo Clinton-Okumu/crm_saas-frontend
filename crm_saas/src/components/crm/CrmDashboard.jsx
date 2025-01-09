@@ -39,7 +39,7 @@ const CrmDashboard = () => {
           <h3 className="text-lg font-semibold text-gray-700">
             Total Contacts
           </h3>
-          <p className="text-3xl font-bold text-blue-600">1,234</p>
+          <p className="text-3xl font-bold text-blue-600">15</p>
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold text-gray-700">
@@ -49,7 +49,7 @@ const CrmDashboard = () => {
         </div>
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h3 className="text-lg font-semibold text-gray-700">Pending Tasks</h3>
-          <p className="text-3xl font-bold text-red-600">5</p>
+          <p className="text-3xl font-bold text-red-600">0</p>
         </div>
       </div>
 
