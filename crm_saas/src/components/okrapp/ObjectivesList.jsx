@@ -95,13 +95,20 @@ const ObjectiveListSection = () => {
             </div>
 
             {/* View Button */}
-            <div className="mt-6">
+            <div className="mt-6 flex space-x-4">
               <Link to={`/okr/objectives/${objective.id}`}>
                 <button className="flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-600">
                   <CheckSquare className="mr-2" />
                   View Objective
                 </button>
               </Link>
+              <button
+                onClick={() => handleDeleteObjective(objective.id)}
+                className="flex items-center bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 ml-2"
+              >
+                <CheckSquare className="mr-2" />
+                Delete Objective
+              </button>
             </div>
           </div>
         ))}
