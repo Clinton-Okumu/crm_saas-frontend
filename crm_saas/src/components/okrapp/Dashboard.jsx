@@ -96,13 +96,13 @@ const DashboardSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="flex flex-col justify-center items-center p-6 bg-white border-4 border-blue-500 shadow-lg rounded-lg">
           <h3 className="text-xl font-semibold text-gray-800">Objectives</h3>
-          <p className="text-4xl font-bold text-blue-500">120</p>
+          <p className="text-4xl font-bold text-blue-500">6</p>
         </div>
         <div className="flex flex-col justify-center items-center p-6 bg-white border-4 border-red-500 shadow-lg rounded-lg">
           <h3 className="text-xl font-semibold text-gray-800">
             Overdue Objectives
           </h3>
-          <p className="text-4xl font-bold text-red-500">8</p>
+          <p className="text-4xl font-bold text-red-500">6</p>
         </div>
         <div className="flex flex-col justify-center items-center p-6 bg-white border-4 border-green-500 shadow-lg rounded-lg">
           <h3 className="text-xl font-semibold text-gray-800">Key Results</h3>
@@ -124,4 +124,3 @@ const DashboardSection = () => {
 };
 
 export default DashboardSection;
-
